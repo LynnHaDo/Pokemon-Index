@@ -8,7 +8,7 @@
 
 <h3 align="center">PokéIndex</h3>
 
-<p align="center">A SwiftUI PokéIndex App using RatesExchangeAPI</p>
+<p align="center">A SwiftUI PokéIndex App using PokéAPI</p>
 
   <p align="center">
     <br />
