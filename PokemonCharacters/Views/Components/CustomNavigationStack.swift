@@ -31,6 +31,7 @@ struct CustomNavigationStack<Content: View>: View {
     var body: some View {
         NavigationStack {
             self.content
+                .ignoresSafeArea()
                 .background(Color.background)
                 .toolbarBackground(Color.background, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
@@ -45,10 +46,10 @@ struct CustomNavigationStack<Content: View>: View {
                     
                     ToolbarItem(placement: .principal) {
                         VStack {
-                            Text(navigationTitle.capitalized).subheading()
+                            Text(navigationTitle.capitalizeFirst()).subheading()
                             
                             if let navigationSubheading = navigationSubheading {
-                                Text(navigationSubheading.capitalized).caption()
+                                Text(navigationSubheading.capitalizeFirst()).caption()
                             }
                         }
                     }

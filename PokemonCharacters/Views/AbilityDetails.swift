@@ -24,7 +24,6 @@ struct AbilityView: View {
             
             if let response = response {
                 ability = response
-                print(response)
             }
         }
         self.isDataLoading = false
@@ -59,4 +58,10 @@ struct AbilityView: View {
             getAbility()
         }
     }
+}
+
+
+
+#Preview {
+    AbilityView(abilityName: "overgrow", pokemonName: "venusaur", resourceUrl: "https://pokeapi.co/api/v2/ability/65/")
 }
