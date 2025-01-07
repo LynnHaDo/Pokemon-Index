@@ -9,15 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(.icon)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 150)
-            Text("Pokémon Characters").title()
-            
-            //PokemonList()
-        }
+        PokemonList()
     }
 }
 

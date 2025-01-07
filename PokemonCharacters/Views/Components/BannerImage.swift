@@ -18,6 +18,5 @@ struct BannerImage: View {
                                        Gradient.Stop(color: .background, location: 1)],
                 startPoint: .top, endPoint: .bottom)
              }
-             .scaleEffect(2.5)
     }
 }
