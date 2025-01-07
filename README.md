@@ -57,7 +57,13 @@ This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-### Features
+### Progress
+
+- [x] Fetch data from PokéAPI and display the top 300 Pokémons
+- [x] Render details for each Pokémon:
+    - [x] Basic info
+    - [x] Image 
+    - [x] Abilities 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

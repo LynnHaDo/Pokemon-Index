@@ -15,6 +15,8 @@ struct ContentView: View {
                 .scaledToFit()
                 .frame(height: 150)
             Text("Pokémon Characters").title()
+            
+            //PokemonList()
         }
     }
 }

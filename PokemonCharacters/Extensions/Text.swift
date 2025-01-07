@@ -9,7 +9,7 @@ import SwiftUI
 
 extension Text {
     func title() -> some View {
-        self.font(Font.custom("BowlbyOne-Regular", size: 24, relativeTo: .title))
+        self.font(Font.custom("BowlbyOne-Regular", size: 30, relativeTo: .title))
             .foregroundStyle(.text)
     }
     

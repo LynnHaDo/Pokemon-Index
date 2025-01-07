@@ -10,34 +10,55 @@ import SwiftUI
 struct Pokemon: Decodable {
     let id: Int
     let name: String
-    let base_experience: Int
+    let baseExperience: Int
     let height: Int
     let weight: Int
     let abilities: [Ability]
     
     func imageUrl() -> String {
-        return "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(id).png"
+        return "\(Routes.pokemonImageBaseUrl)\(id).png"
     }
     
-    private enum CodingKeys: String, CodingKey {
-        case id, name, base_experience, height, weight, abilities
+    func backgroundImage() -> Image {
+        let randomInt = Int.random(in: 1..<4)
+        
+        switch randomInt {
+            case 1:
+                return Image(.sceneOne)
+            case 2:
+                return Image(.sceneTwo)
+            default:
+                return Image(.sceneThree)
+        }
     }
     
     struct Ability: Decodable {
         let ability: AbilityItem
-    }
-    
-    struct AbilityItem: Decodable {
-        let name: String
-        // url
+        let isHidden: Bool 
+        
+        struct AbilityItem: Decodable {
+            let name: String
+            let url: String
+        }
     }
 }
 
-struct Pokemons: Decodable {
-    let results: [PokemonName]
+struct PokemonAbility: Decodable {
+    let effectEntries: [Entry]
+    let pokemon: [PokemonEffectEntry]
     
-    struct PokemonName: Decodable {
-        let name: String
-        let url: String
+    struct Entry: Decodable {
+        let effect: String
+        let language: LanguageEntry
+        let shortEffect: String
+        
+        struct LanguageEntry: Decodable {
+            let name: String
+        }
+    }
+    
+    struct PokemonEffectEntry: Decodable {
+        let isHidden: Bool
+        let pokemon: PokemonName
     }
 }

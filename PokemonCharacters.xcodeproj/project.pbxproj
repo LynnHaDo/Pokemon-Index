@@ -18,7 +18,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		91DE558F2D1E7B3C00AF6B31 /* Exceptions for "PokemonCharacters" folder in "PokemonCharacters" target */ = {
+		91CBCEC32D2CCE3100B9515F /* Exceptions for "PokemonCharacters" folder in "PokemonCharacters" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -33,15 +33,10 @@
 			path = Public;
 			sourceTree = "<group>";
 		};
-		91CBCEA72D2CAE5400B9515F /* Config */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Config;
-			sourceTree = "<group>";
-		};
 		91DE55402D1E795000AF6B31 /* PokemonCharacters */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				91DE558F2D1E7B3C00AF6B31 /* Exceptions for "PokemonCharacters" folder in "PokemonCharacters" target */,
+				91CBCEC32D2CCE3100B9515F /* Exceptions for "PokemonCharacters" folder in "PokemonCharacters" target */,
 			);
 			path = PokemonCharacters;
 			sourceTree = "<group>";
@@ -62,7 +57,6 @@
 		91DE55352D1E795000AF6B31 = {
 			isa = PBXGroup;
 			children = (
-				91CBCEA72D2CAE5400B9515F /* Config */,
 				91CBCEA52D2CAE2B00B9515F /* .gitignore */,
 				91CBCEA02D2CA2AF00B9515F /* Public */,
 				910A14FE2D1F776C00C5DB62 /* README.md */,
@@ -96,7 +90,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				91CBCEA02D2CA2AF00B9515F /* Public */,
-				91CBCEA72D2CAE5400B9515F /* Config */,
 				91DE55402D1E795000AF6B31 /* PokemonCharacters */,
 			);
 			name = PokemonCharacters;
