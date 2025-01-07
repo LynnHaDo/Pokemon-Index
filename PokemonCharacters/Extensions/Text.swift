@@ -14,7 +14,12 @@ extension Text {
     }
     
     func heading() -> some View {
-        self.font(Font.custom("Chivo-Bold", size: 20, relativeTo: .title2))
+        self.font(Font.custom("Chivo-Bold", size: 22, relativeTo: .title2))
+            .foregroundStyle(.text)
+    }
+    
+    func subheading() -> some View {
+        self.font(Font.custom("Chivo-Bold", size: 20, relativeTo: .title3))
             .foregroundStyle(.text)
     }
     
@@ -25,6 +30,6 @@ extension Text {
     
     func caption() -> some View {
         self.font(Font.custom("Chivo-Light", size: 16, relativeTo: .caption))
-            .foregroundStyle(.gray)
+            .foregroundStyle(Color.caption)
     }
 }

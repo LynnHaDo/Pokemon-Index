@@ -46,60 +46,68 @@ struct PokemonDetails: View {
                 }
                 else
                 {
-                    GeometryReader { geo in
-                        ScrollView {
-                            ZStack(alignment: .bottomTrailing) {
-                                // Background image
-                                sprite!.backgroundImage()
-                                    .resizable()
-                                    .scaledToFit()
-                                
-                                Color.black.frame(width: geo.size.width, height: 40).blur(radius: 20).offset(y: 20)
-                                
-                                // Sprite image
-                                AsyncImage(url: URL(string: sprite!.imageUrl())) { image in
-                                    image.resizable().scaledToFit()
-                                } placeholder: {
-                                    Color.gray
+                    NavigationStack {
+                        GeometryReader { geo in
+                            ScrollView {
+                                ZStack(alignment: .bottomTrailing) {
+                                    // Background image
+                                    sprite!.backgroundImage()
+                                        .resizable()
+                                        .scaledToFit()
+                                        .overlay {
+                                            LinearGradient(stops: [Gradient.Stop(color: .background, location: 0),Gradient.Stop(color: .clear, location: 0.6),Gradient.Stop(color: .background, location: 1)],
+                                                           startPoint: .top, endPoint: .bottom)
+                                        }
+                                    
+                                    
+                                    // Sprite image
+                                    AsyncImage(url: URL(string: sprite!.imageUrl())) { image in
+                                        image.resizable().scaledToFit()
+                                    } placeholder: {
+                                        Color.gray
+                                    }
+                                    .frame(width: geo.size.width * 0.5)
+                                    .clipShape(.rect(cornerRadius: 5))
+                                    .shadow(color: Color.background, radius: 7)
+                                    .offset(y: 60)
                                 }
-                                .frame(width: geo.size.width * 0.5)
-                                .clipShape(.rect(cornerRadius: 15))
-                                .shadow(color: Color.background, radius: 7)
-                                .offset(y: 60)
-                            }
-                            
-                            VStack(alignment: .leading) {
-                                // Sprite name
-                                Text(sprite!.name.capitalized).title()
                                 
-                                // Current location
-                                
-                                // Height
-                                Feature(name: "Height", description: "The height of this Pokémon in decimetres.", value: StringOrInt(strVal: nil, intVal: sprite!.height))
-                                
-                                // Weight
-                                Feature(name: "Weight", description: "The weight of this Pokémon in hectograms.", value: StringOrInt(strVal: nil, intVal: sprite!.weight))
-                                
-                                // Base experience
-                                Feature(name: "Base experience", description: "The base experience gained for defeating this Pokémon.", value: StringOrInt(strVal: nil, intVal: sprite!.baseExperience))
-                                
-                                // Abilities
-                                Text("Abilities").heading()
-                                
-                                ForEach(0..<sprite!.abilities.count, id: \.self) { idx in
-                                    Text(sprite!.abilities[idx].ability.name).heading()
-                                    Text("This is \(sprite!.abilities[idx].isHidden ? "" : "not") a hidden ability.").regular()
-                                    AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)
+                                VStack(alignment: .leading) {
+                                    // Sprite name
+                                    Text(sprite!.name.capitalized).title()
+                                    
+                                    // Current location
+                                    
+                                    // Height
+                                    Feature(name: "Height", description: "The height of this Pokémon in decimetres.", value: StringOrInt(strVal: nil, intVal: sprite!.height))
+                                    
+                                    // Weight
+                                    Feature(name: "Weight", description: "The weight of this Pokémon in hectograms.", value: StringOrInt(strVal: nil, intVal: sprite!.weight))
+                                    
+                                    // Base experience
+                                    Feature(name: "Base experience", description: "The base experience gained for defeating this Pokémon.", value: StringOrInt(strVal: nil, intVal: sprite!.baseExperience))
+                                    
+                                    // Abilities
+                                    Feature(name: "Abilities",
+                                            description: "Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time.")
+                                    
+                                    ForEach(0..<sprite!.abilities.count, id: \.self) { idx in
+                                        NavigationLink(destination: AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)) {
+                                            AbilityItemView(name: sprite!.abilities[idx].ability.name, isHidden: sprite!.abilities[idx].isHidden)
+                                        }
+                                        
+                                        //AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)
+                                    }
                                 }
+                                .padding(.vertical, 30)
+                                .padding(.horizontal)
+                                .frame(width: geo.size.width)
+                                
                             }
-                            .padding([.top, .bottom], 30)
-                            .padding([.leading, .trailing])
-                            .frame(width: geo.size.width)
-                            
                         }
+                        .ignoresSafeArea()
+                        .background(Color.background)
                     }
-                    .ignoresSafeArea()
-                    .background(Color.background)
                 }
             }
         }
@@ -112,7 +120,7 @@ struct PokemonDetails: View {
 struct Feature: View {
     let name: String
     let description: String
-    let value: StringOrInt
+    var value: StringOrInt?
     
     var body: some View {
         HStack(alignment: .top) {
@@ -122,55 +130,33 @@ struct Feature: View {
             }
             
             Spacer()
-            Text(value.intVal == nil ? value.strVal! : String(value.intVal!)).regular()
+            if let value = value {
+                Text(value.intVal == nil ? value.strVal! : String(value.intVal!)).regular()
+            }
         }
         .padding([.top, .bottom], 10)
     }
 }
 
-struct AbilityView: View {
-    let resourceUrl: String
-    
-    @State var ability: PokemonAbility?
-    @State var errorMessage: String = ""
-    @State var isDataLoading: Bool = true
-    
-    func getAbility() {
-        APIService.get(resourceUrl) { (response: PokemonAbility?, error: Error?) in
-            if let error = error {
-                errorMessage = error.localizedDescription
-            }
-            
-            if let response = response {
-                ability = response
-                print(response)
-            }
-        }
-        self.isDataLoading = false
-    }
+struct AbilityItemView: View {
+    let name: String
+    let isHidden: Bool
     
     var body: some View {
-        VStack {
-            if (errorMessage != "")
-            {
-                Text(errorMessage).caption()
-            }
-            else {
-                if (ability == nil) {
-                    Text("Ability info is not available.")
-                }
-                else {
-                    VStack {
-                        ForEach(0..<ability!.effectEntries.count, id: \.self) { idx in
-                            Feature(name: ability!.effectEntries[idx].shortEffect, description: ability!.effectEntries[idx].effect, value: StringOrInt(strVal: ability!.effectEntries[idx].language.name, intVal: nil))
-                        }
-                    }
-                }
+        GeometryReader { geometry in
+            HStack {
+                Text(name.capitalized).subheading().frame(width: geometry.size.width * 0.4, alignment: .leading)
+                Spacer().frame(width: geometry.size.width * 0.05)
+                Tag(content: isHidden ? "Hidden" : "Not hidden",
+                    type: isHidden ? TagType.pink : TagType.green).frame(width: geometry.size.width * 0.4)
+                Spacer().frame(width: geometry.size.width * 0.05)
+                Image(systemName: "arrow.right").frame(width: geometry.size.width * 0.1, alignment: .trailing).foregroundStyle(Color.text)
             }
         }
-        .onAppear() {
-            getAbility()
-        }
+        .padding(.top, 15)
+        .padding(.bottom, 40)
+        .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundStyle(Color.gray),
+                 alignment: .bottom)
     }
 }
 
