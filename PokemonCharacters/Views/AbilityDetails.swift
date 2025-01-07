@@ -29,19 +29,23 @@ struct AbilityView: View {
     }
     
     var body: some View {
-        VStack {
-            if (errorMessage != "")
-            {
-                Text(errorMessage).caption()
-            }
-            else {
-                if (ability == nil) {
-                    Text("Ability info is not available.")
+        ZStack {
+            Color.background.ignoresSafeArea()
+            
+            VStack {
+                if (errorMessage != "")
+                {
+                    Text(errorMessage).caption()
                 }
                 else {
-                    VStack {
-                        ForEach(0..<ability!.effectEntries.count, id: \.self) { idx in
-                            
+                    if (ability == nil) {
+                        Text("Ability info is not available.")
+                    }
+                    else {
+                        VStack {
+                            ForEach(0..<ability!.effectEntries.count, id: \.self) { idx in
+                                
+                            }
                         }
                     }
                 }

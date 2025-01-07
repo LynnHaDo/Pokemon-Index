@@ -29,84 +29,79 @@ struct PokemonDetails: View {
     
     var body: some View {
         Loader(isShown: $isDataLoading) {
-            if (self.errorMessage != "")
-            {
-                ZStack {
-                    Color.background.ignoresSafeArea()
+            ZStack {
+                Color.background.ignoresSafeArea()
+                
+                if (self.errorMessage != "")
+                {
                     Text(errorMessage).caption()
                 }
-            }
-            else {
-                if (self.sprite == nil) {
-                    ZStack {
-                        Color.background.ignoresSafeArea()
-                        
+                else {
+                    if (self.sprite == nil) {
                         Text("Sprite cannot be loaded.").caption()
                     }
-                }
-                else
-                {
-                    NavigationStack {
-                        GeometryReader { geo in
-                            ScrollView {
-                                ZStack(alignment: .bottomTrailing) {
-                                    // Background image
-                                    sprite!.backgroundImage()
-                                        .resizable()
-                                        .scaledToFit()
-                                        .overlay {
-                                            LinearGradient(stops: [Gradient.Stop(color: .background, location: 0),Gradient.Stop(color: .clear, location: 0.6),Gradient.Stop(color: .background, location: 1)],
-                                                           startPoint: .top, endPoint: .bottom)
-                                        }
-                                    
-                                    
-                                    // Sprite image
-                                    AsyncImage(url: URL(string: sprite!.imageUrl())) { image in
-                                        image.resizable().scaledToFit()
-                                    } placeholder: {
-                                        Color.gray
-                                    }
-                                    .frame(width: geo.size.width * 0.5)
-                                    .clipShape(.rect(cornerRadius: 5))
-                                    .shadow(color: Color.background, radius: 7)
-                                    .offset(y: 60)
-                                }
-                                
-                                VStack(alignment: .leading) {
-                                    // Sprite name
-                                    Text(sprite!.name.capitalized).title()
-                                    
-                                    // Current location
-                                    
-                                    // Height
-                                    Feature(name: "Height", description: "The height of this Pokémon in decimetres.", value: StringOrInt(strVal: nil, intVal: sprite!.height))
-                                    
-                                    // Weight
-                                    Feature(name: "Weight", description: "The weight of this Pokémon in hectograms.", value: StringOrInt(strVal: nil, intVal: sprite!.weight))
-                                    
-                                    // Base experience
-                                    Feature(name: "Base experience", description: "The base experience gained for defeating this Pokémon.", value: StringOrInt(strVal: nil, intVal: sprite!.baseExperience))
-                                    
-                                    // Abilities
-                                    Feature(name: "Abilities",
-                                            description: "Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time.")
-                                    
-                                    ForEach(0..<sprite!.abilities.count, id: \.self) { idx in
-                                        NavigationLink(destination: AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)) {
-                                            AbilityItemView(name: sprite!.abilities[idx].ability.name, isHidden: sprite!.abilities[idx].isHidden)
-                                        }
+                    else
+                    {
+                        NavigationStack {
+                            GeometryReader { geo in
+                                ScrollView {
+                                    ZStack(alignment: .bottomTrailing) {
+                                        // Background image
+                                        sprite!.backgroundImage()
+                                            .resizable()
+                                            .scaledToFit()
+                                            .overlay {
+                                                LinearGradient(stops: [Gradient.Stop(color: .background, location: 0),Gradient.Stop(color: .clear, location: 0.6),Gradient.Stop(color: .background, location: 1)],
+                                                               startPoint: .top, endPoint: .bottom)
+                                            }
                                         
-                                        //AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)
+                                        
+                                        // Sprite image
+                                        AsyncImage(url: URL(string: sprite!.imageUrl())) { image in
+                                            image.resizable().scaledToFit()
+                                        } placeholder: {
+                                            Color.gray
+                                        }
+                                        .frame(width: geo.size.width * 0.5)
+                                        .clipShape(.rect(cornerRadius: 5))
+                                        .shadow(color: Color.background, radius: 7)
+                                        .offset(y: 60)
                                     }
+                                    
+                                    VStack(alignment: .leading) {
+                                        // Sprite name
+                                        Text(sprite!.name.capitalized).title()
+                                        
+                                        // Current location
+                                        
+                                        // Height
+                                        Feature(name: "Height", description: "The height of this Pokémon in decimetres.", value: StringOrInt(strVal: nil, intVal: sprite!.height))
+                                        
+                                        // Weight
+                                        Feature(name: "Weight", description: "The weight of this Pokémon in hectograms.", value: StringOrInt(strVal: nil, intVal: sprite!.weight))
+                                        
+                                        // Base experience
+                                        Feature(name: "Base experience", description: "The base experience gained for defeating this Pokémon.", value: StringOrInt(strVal: nil, intVal: sprite!.baseExperience))
+                                        
+                                        // Abilities
+                                        Feature(name: "Abilities",
+                                                description: "Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time.")
+                                        
+                                        ForEach(0..<sprite!.abilities.count, id: \.self) { idx in
+                                            NavigationLink(destination: AbilityView(resourceUrl: sprite!.abilities[idx].ability.url)) {
+                                                AbilityItemView(name: sprite!.abilities[idx].ability.name, isHidden: sprite!.abilities[idx].isHidden)
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical, 30)
+                                    .padding(.horizontal)
+                                    .frame(width: geo.size.width)
+                                    
                                 }
-                                .padding(.vertical, 30)
-                                .padding(.horizontal)
-                                .frame(width: geo.size.width)
-                                
                             }
+                            .ignoresSafeArea()
+                            .background(Color.background)
                         }
-                        .ignoresSafeArea()
-                        .background(Color.background)
                     }
                 }
             }
