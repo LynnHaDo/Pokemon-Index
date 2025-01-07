@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AbilityView: View {
+    let abilityName: String
+    let pokemonName: String 
     let resourceUrl: String
     
     @State var ability: PokemonAbility?
@@ -35,18 +37,20 @@ struct AbilityView: View {
             VStack {
                 if (errorMessage != "")
                 {
-                    Text(errorMessage).caption()
+                    Text(errorMessage).regular()
                 }
                 else {
-                    if (ability == nil) {
-                        Text("Ability info is not available.")
-                    }
-                    else {
-                        VStack {
-                            ForEach(0..<ability!.effectEntries.count, id: \.self) { idx in
-                                
+                    if let ability = ability {
+                        CustomNavigationStack(navigationTitle: abilityName, navigationSubheading: "\(pokemonName) abilities") {
+                            VStack {
+                                ForEach(0..<ability.effectEntries.count, id: \.self) { idx in
+                                    
+                                }
                             }
                         }
+                    }
+                    else {
+                        Text("Ability info is not available.").regular()
                     }
                 }
             }

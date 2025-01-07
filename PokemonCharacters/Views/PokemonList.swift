@@ -38,28 +38,34 @@ struct PokemonList: View {
                     Text(self.errorMessage)
                 }
                 else {
-                    if (self.pokemonsList == nil)
+                    if let pokemonsList = pokemonsList
                     {
-                        Text("Error")
-                    }
-                    else {
-                        NavigationStack {
-                            ZStack {
-                                Color.background.ignoresSafeArea()
-                                
-                                ScrollView {
-                                    LazyVStack {
-                                        ForEach(0..<self.pokemonsList!.count, id: \.self) { idx in
-                                            NavigationLink(destination: PokemonDetails(resourceUrl: pokemonsList![idx].url)) {
-                                                PokemonItemView(name: pokemonsList![idx].name)
+                        CustomNavigationStack(navigationTitle: "PokéIndex", isNotHome: false) {
+                            ScrollView {
+                                ZStack {
+                                    Color.background.ignoresSafeArea()
+
+                                    VStack(alignment: .leading) {
+                                        BannerImage(image: Image(.banner))
+                                        
+                                        Text("Welcome to Pokémon World").title()
+                                        
+                                        LazyVStack {
+                                            ForEach(0..<pokemonsList.count, id: \.self) { idx in
+                                                NavigationLink(destination: PokemonDetails(resourceUrl: pokemonsList[idx].url)) {
+                                                    PokemonItemView(name: pokemonsList[idx].name)
+                                                }
                                             }
                                         }
                                     }
+                                    .padding(.vertical, 30)
+                                    .padding(.horizontal)
                                 }
-                                .list()
                             }
                         }
-                        .navigationTitle("Pokemon Index")
+                    }
+                    else {
+                        Text("Error")
                     }
                 }
             }
@@ -81,7 +87,8 @@ struct PokemonItemView: View {
                 Image(systemName: "arrow.right").frame(width: geometry.size.width * 0.1, alignment: .trailing).foregroundStyle(Color.text)
             }
         }
-        .padding([.top, .bottom], 20)
+        .padding(.top, 15)
+        .padding(.bottom, 40)
         .overlay(Rectangle().frame(width: nil, height: 1, alignment: .bottom).foregroundStyle(Color.gray),
                  alignment: .bottom)
     }

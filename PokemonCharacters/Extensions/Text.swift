@@ -13,6 +13,11 @@ extension Text {
             .foregroundStyle(.text)
     }
     
+    func logo() -> some View {
+        self.font(Font.custom("BowlbyOne-Regular", size: 22, relativeTo: .title))
+            .foregroundStyle(.text)
+    }
+    
     func heading() -> some View {
         self.font(Font.custom("Chivo-Bold", size: 22, relativeTo: .title2))
             .foregroundStyle(.text)
