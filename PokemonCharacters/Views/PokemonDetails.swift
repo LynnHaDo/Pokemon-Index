@@ -37,7 +37,7 @@ struct PokemonDetails: View {
                     Text(errorMessage).caption()
                 }
                 else {
-                    if let sprite = sprite {
+                    if let sprite {
                         CustomNavigationStack(navigationTitle: sprite.name) {
                             GeometryReader { geo in
                                 ScrollView {
@@ -64,22 +64,32 @@ struct PokemonDetails: View {
                                         // Current location
                                         
                                         // Height
-                                        Heading(name: "Height", description: "The height of this Pokémon in decimetres.", value: StringOrInt(strVal: nil, intVal: sprite.height))
+                                        Heading(name: "Height",
+                                                description: "The height of this Pokémon in decimetres.",
+                                                value: StringOrInt(strVal: nil, intVal: sprite.height))
                                         
                                         // Weight
-                                        Heading(name: "Weight", description: "The weight of this Pokémon in hectograms.", value: StringOrInt(strVal: nil, intVal: sprite.weight))
+                                        Heading(name: "Weight",
+                                                description: "The weight of this Pokémon in hectograms.",
+                                                value: StringOrInt(strVal: nil, intVal: sprite.weight))
                                         
                                         // Base experience
-                                        Heading(name: "Base experience", description: "The base experience gained for defeating this Pokémon.", value: StringOrInt(strVal: nil, intVal: sprite.baseExperience))
+                                        Heading(name: "Base experience",
+                                                description: "The base experience gained for defeating this Pokémon.",
+                                                value: StringOrInt(strVal: nil, intVal: sprite.baseExperience))
                                         
                                         // Abilities
                                         Heading(name: "Abilities",
                                                 description: "Abilities provide passive effects for Pokémon in battle or in the overworld. Pokémon have multiple possible abilities but can have only one ability at a time.")
                                         
                                         ForEach(0..<sprite.abilities.count, id: \.self) { idx in
-                                            NavigationLink(destination: AbilityView(abilityName: sprite.abilities[idx].ability.name, pokemonName: sprite.name, resourceUrl: sprite.abilities[idx].ability.url)) {
-                                                ItemView(name: sprite.abilities[idx].ability.name, tag: Tag(content: sprite.abilities[idx].isHidden ? "Hidden" : "Not hidden",
-                                                                                                            type: sprite.abilities[idx].isHidden ? TagType.pink : TagType.green)
+                                            let abilityWrapper: Pokemon.Ability = sprite.abilities[idx]
+                                            
+                                            NavigationLink(destination: AbilityView(abilityName: abilityWrapper.ability.name,
+                                                                                    pokemonName: sprite.name,
+                                                                                    resourceUrl: abilityWrapper.ability.url)) {
+                                                ItemView(name: abilityWrapper.ability.name,
+                                                         tag: Tag(content: abilityWrapper.isHidden ? "Hidden" : "Not hidden", type: abilityWrapper.isHidden ? TagType.pink : TagType.green)
                                                 )
                                             }
                                         }
@@ -103,8 +113,6 @@ struct PokemonDetails: View {
         }
     }
 }
-
-
 
 #Preview {
     PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3/")

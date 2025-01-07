@@ -40,7 +40,8 @@ struct AbilityView: View {
                 }
                 else {
                     if let ability = ability {
-                        CustomNavigationStack(navigationTitle: abilityName, navigationSubheading: "\(pokemonName) abilities") {
+                        CustomNavigationStack(navigationTitle: abilityName,
+                                              navigationSubheading: "\(pokemonName) abilities") {
                             ScrollView {
                                 VStack {
                                     HStack {
@@ -55,16 +56,19 @@ struct AbilityView: View {
                                     }
                                     
                                     HStack {
-                                        Heading(name: "Related Pokémons", description: "A list of Pokémon that could potentially have this ability.")
+                                        Heading(name: "Related Pokémons",
+                                                description: "A list of Pokémon that could potentially have this ability.")
                                         Spacer()
                                     }
                                     
                                     LazyVStack {
                                         ForEach(0..<ability.pokemon.count, id: \.self) {
                                             idx in
-                                            NavigationLink(destination: PokemonDetails(resourceUrl: ability.pokemon[idx].pokemon.url)) {
-                                                ItemView(name: ability.pokemon[idx].pokemon.name, tag: Tag(content: ability.pokemon[idx].isHidden ? "Hidden" : "Not hidden",
-                                                                                                           type: ability.pokemon[idx].isHidden ? TagType.pink : TagType.green))
+                                            let pokemonAbility: PokemonAbility.PokemonEffectEntry = ability.pokemon[idx]
+                                            NavigationLink(destination: PokemonDetails(resourceUrl: pokemonAbility.pokemon.url)) {
+                                                ItemView(name: pokemonAbility.pokemon.name,
+                                                         tag: Tag(content: pokemonAbility.isHidden ? "Hidden" : "Not hidden",
+                                                                  type: pokemonAbility.isHidden ? TagType.pink : TagType.green))
                                             }
                                         }
                                     }
@@ -97,10 +101,14 @@ struct EffectEntryView: View {
                     Spacer()
                 }
                 
-                Text(entry.shortEffect).subheading().frame(alignment: .leading).fixedSize(horizontal: false, vertical: true)
+                Text(entry.shortEffect).subheading()
+                    .frame(alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.vertical, 10)
                 
-                Text(entry.effect).regular().frame(alignment: .leading).fixedSize(horizontal: false, vertical: true)
+                Text(entry.effect).regular()
+                    .frame(alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
             }
         }
         .padding(.top, 15)
