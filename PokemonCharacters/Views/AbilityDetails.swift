@@ -15,9 +15,12 @@ struct AbilityView: View {
     @State var ability: PokemonAbility?
     @State var errorMessage: String = ""
     @State var isDataLoading: Bool = true
+    @State var previousTask: URLSessionTask?
     
     func getAbility() {
-        APIService.get(resourceUrl) { (response: PokemonAbility?, error: Error?) in
+        previousTask?.cancel()
+        
+        previousTask = APIService.get(resourceUrl) { (response: PokemonAbility?, error: Error?) in
             if let error = error {
                 errorMessage = error.localizedDescription
             }

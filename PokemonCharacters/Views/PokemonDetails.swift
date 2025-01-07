@@ -13,9 +13,12 @@ struct PokemonDetails: View {
     @State var sprite: Pokemon?
     @State var errorMessage: String = ""
     @State var isDataLoading: Bool = true
+    @State var previousTask: URLSessionTask?
     
     func getPokemon() {
-        APIService.get(resourceUrl) { (response: Pokemon?, error: Error?) in
+        previousTask?.cancel()
+        
+        previousTask = APIService.get(resourceUrl) { (response: Pokemon?, error: Error?) in
             if let error = error {
                 errorMessage = error.localizedDescription
             }

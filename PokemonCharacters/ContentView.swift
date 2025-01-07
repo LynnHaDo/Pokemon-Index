@@ -8,25 +8,63 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State var pokemonsList: [PokemonName]?
+    
+    var pokeList: [PokemonName]? {
+//        if let pokemons {
+//            if searchText.isEmpty {
+//                return pokemons
+//            }
+//            else {
+//                return pokemons.filter {
+//                    pokemon in
+//                    pokemon.name.localizedCaseInsensitiveContains(searchText)
+//                }
+//            }
+//        }
+//        else {
+//            return nil
+//        }
+        
+        if let allPokemons {
+            if searchText.isEmpty {
+                return allPokemons
+            }
+            else {
+                return allPokemons.filter {
+                    pokemon in
+                    pokemon.name.localizedCaseInsensitiveContains(searchText)
+                }
+            }
+        }
+        else {
+            return nil
+        }
+    }
+    
+    @State var searchText: String = ""
+    @State var allPokemons: [PokemonName]?
     
     @State var isDataLoading: Bool = true
     @State var errorMessage: String = ""
     
+    @State var previousTask: URLSessionTask?
+    
     func getPokemons() {
         let url = Routes.baseUrl
         
-        APIService.get(url) { (response: Pokemons?, error: Error?) in
+        previousTask?.cancel()
+        
+        previousTask = APIService.get(url) { (response: Pokemons?, error: Error?) in
             if let error = error {
-                self.errorMessage = error.localizedDescription
+                errorMessage = error.localizedDescription
             }
             
             if let response = response {
-                self.pokemonsList = response.results
+                allPokemons = response.results
             }
         }
         
-        self.isDataLoading = false
+        isDataLoading = false
     }
     
     var body: some View {
@@ -38,32 +76,30 @@ struct ContentView: View {
                     Text(self.errorMessage)
                 }
                 else {
-                    if let pokemonsList
-                    {
-                        CustomNavigationStack(navigationTitle: "PokéIndex", isNotHome: false) {
-                            ScrollView {
-                                ZStack {
-                                    Color.background.ignoresSafeArea()
+                    CustomNavigationStack(navigationTitle: "PokéIndex", isNotHome: false) {
+                        ScrollView {
+                            ZStack {
+                                Color.background.ignoresSafeArea()
 
-                                    VStack(alignment: .leading) {
-                                        // Banner image
-                                        BannerImage(image: Image(.banner)).scaleEffect(2)
-                                        
-                                        // Banner text
-                                        Text("Welcome to Pokémon World").title()
-                                        
-                                        // List of pokemons
-                                        PokemonList(list: pokemonsList)
+                                VStack(alignment: .leading) {
+                                    // Banner image
+                                    BannerImage(image: Image(.banner)).scaleEffect(2)
+                                    
+                                    // Banner text
+                                    Text("Welcome to Pokémon World").title()
+
+                                    // List of pokemons
+                                    if let pokeList {
+                                        PokemonList(list: pokeList)
                                     }
-                                    .padding(.vertical, 30)
-                                    .padding(.horizontal)
                                 }
+                                .padding(.vertical, 30)
+                                .padding(.horizontal)
                             }
                         }
                     }
-                    else {
-                        Text("Error")
-                    }
+                    .searchable(text: $searchText)
+                    .autocorrectionDisabled()
                 }
             }
             .onAppear() {

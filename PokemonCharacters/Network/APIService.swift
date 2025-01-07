@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct APIService {
-    static func get<T: Decodable>(_ resourceUrl: String, completion: @Sendable @MainActor @escaping (T?, Error?) -> ())
+    private weak var previousTask: URLSessionTask?
+    
+    static func get<T: Decodable>(_ resourceUrl: String, completion: @Sendable @MainActor @escaping (T?, Error?) -> ()) -> URLSessionTask?
     {
-        guard let url = URL(string: resourceUrl) else { return }
+        guard let url = URL(string: resourceUrl) else { return nil }
         
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
+        let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let e = error {
                 print(e.localizedDescription)
                 return 
@@ -27,7 +29,10 @@ struct APIService {
                     completion(modeledData, nil)
                 }
             }
-        }.resume() 
+        }
+        
+        dataTask.resume()
+        return dataTask
     }
     
     // Return data on success
