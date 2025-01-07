@@ -10,21 +10,6 @@ import SwiftUI
 struct ContentView: View {
     
     var pokeList: [PokemonName]? {
-//        if let pokemons {
-//            if searchText.isEmpty {
-//                return pokemons
-//            }
-//            else {
-//                return pokemons.filter {
-//                    pokemon in
-//                    pokemon.name.localizedCaseInsensitiveContains(searchText)
-//                }
-//            }
-//        }
-//        else {
-//            return nil
-//        }
-        
         if let allPokemons {
             if searchText.isEmpty {
                 return allPokemons
@@ -100,10 +85,12 @@ struct ContentView: View {
                     }
                     .searchable(text: $searchText)
                     .autocorrectionDisabled()
+                    .animation(.default, value: searchText)
                 }
             }
             .onAppear() {
                 getPokemons()
+                UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .text
             }
         }
     }

@@ -11,11 +11,20 @@ struct PokemonList: View {
     let list: [PokemonName]
     
     var body: some View {
-        LazyVStack {
-            ForEach(0..<list.count, id: \.self) { idx in
-                let pokemon = list[idx]
-                NavigationLink(destination: PokemonDetails(resourceUrl: pokemon.url)) {
-                    ItemView(name: pokemon.name)
+        if list.count == 0 {
+            VStack {
+                Text("No Pokémons found. Please try again.")
+                    .heading()
+                    .padding(.top, 15)
+            }
+        }
+        else {
+            LazyVStack {
+                ForEach(0..<list.count, id: \.self) { idx in
+                    let pokemon = list[idx]
+                    NavigationLink(destination: PokemonDetails(resourceUrl: pokemon.url)) {
+                        ItemView(name: pokemon.name)
+                    }
                 }
             }
         }
