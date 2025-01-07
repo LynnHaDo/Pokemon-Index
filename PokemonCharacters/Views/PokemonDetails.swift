@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import PokemonAPI
 
 struct PokemonDetails: View {
     let id: Int
@@ -15,16 +14,7 @@ struct PokemonDetails: View {
     @State var error: String = ""
     
     func getPokemon() {
-        PokemonAPI().pokemonService.fetchPokemon(self.id) {
-            result in
-            
-            switch result {
-                case .success(let pokemon):
-                    self.name = pokemon.name!
-                case .failure(let error):
-                    self.error = error.localizedDescription
-            }
-        }
+        
     }
     
     var body: some View {

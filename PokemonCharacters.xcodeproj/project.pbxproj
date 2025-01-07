@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		910A14B22D1F70B600C5DB62 /* PokemonAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 910A14B12D1F70B600C5DB62 /* PokemonAPI */; };
 		910A14FF2D1F777000C5DB62 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 910A14FE2D1F776C00C5DB62 /* README.md */; };
+		91CBCEA62D2CAE3000B9515F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 91CBCEA52D2CAE2B00B9515F /* .gitignore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		910A14FE2D1F776C00C5DB62 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		91CBCEA52D2CAE2B00B9515F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		91DE553E2D1E795000AF6B31 /* PokemonCharacters.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokemonCharacters.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -27,6 +28,16 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		91CBCEA02D2CA2AF00B9515F /* Public */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Public;
+			sourceTree = "<group>";
+		};
+		91CBCEA72D2CAE5400B9515F /* Config */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Config;
+			sourceTree = "<group>";
+		};
 		91DE55402D1E795000AF6B31 /* PokemonCharacters */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -42,7 +53,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				910A14B22D1F70B600C5DB62 /* PokemonAPI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +62,9 @@
 		91DE55352D1E795000AF6B31 = {
 			isa = PBXGroup;
 			children = (
+				91CBCEA72D2CAE5400B9515F /* Config */,
+				91CBCEA52D2CAE2B00B9515F /* .gitignore */,
+				91CBCEA02D2CA2AF00B9515F /* Public */,
 				910A14FE2D1F776C00C5DB62 /* README.md */,
 				91DE55402D1E795000AF6B31 /* PokemonCharacters */,
 				91DE553F2D1E795000AF6B31 /* Products */,
@@ -82,11 +95,12 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				91CBCEA02D2CA2AF00B9515F /* Public */,
+				91CBCEA72D2CAE5400B9515F /* Config */,
 				91DE55402D1E795000AF6B31 /* PokemonCharacters */,
 			);
 			name = PokemonCharacters;
 			packageProductDependencies = (
-				910A14B12D1F70B600C5DB62 /* PokemonAPI */,
 			);
 			productName = PokemonCharacters;
 			productReference = 91DE553E2D1E795000AF6B31 /* PokemonCharacters.app */;
@@ -117,7 +131,6 @@
 			mainGroup = 91DE55352D1E795000AF6B31;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				910A14B02D1F70B600C5DB62 /* XCRemoteSwiftPackageReference "PokemonAPI" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 91DE553F2D1E795000AF6B31 /* Products */;
@@ -134,6 +147,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91CBCEA62D2CAE3000B9515F /* .gitignore in Resources */,
 				910A14FF2D1F777000C5DB62 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,25 +366,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		910A14B02D1F70B600C5DB62 /* XCRemoteSwiftPackageReference "PokemonAPI" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/kinkofer/PokemonAPI";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.1.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		910A14B12D1F70B600C5DB62 /* PokemonAPI */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 910A14B02D1F70B600C5DB62 /* XCRemoteSwiftPackageReference "PokemonAPI" */;
-			productName = PokemonAPI;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 91DE55362D1E795000AF6B31 /* Project object */;
 }

@@ -32,3 +32,12 @@ struct Pokemon: Decodable {
         // url
     }
 }
+
+struct Pokemons: Decodable {
+    let results: [PokemonName]
+    
+    struct PokemonName: Decodable {
+        let name: String
+        let url: String
+    }
+}
