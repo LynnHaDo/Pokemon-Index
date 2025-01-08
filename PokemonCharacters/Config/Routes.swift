@@ -6,6 +6,7 @@
 //
 
 struct Routes {
-    static let baseUrl = "https://pokeapi.co/api/v2/pokemon?limit=300"
-    static let pokemonImageBaseUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/"
+    static let baseUrl = "https://pokeapi.co/api/v2/pokemon"
+    static func pokemonImageUrl(_ pokemonId: Int) -> String { "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/\(pokemonId).png"
+    }
 }

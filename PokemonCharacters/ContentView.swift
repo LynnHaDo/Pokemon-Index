@@ -10,10 +10,9 @@ import SwiftUI
 struct ContentView: View {
 
     @State var searchText: String = ""
+    
+    @State var allNames: [String] = []
     @State var allPokemons: [PokemonName]?
-    //@State var sortProperty: KeyPath<Pokemon, any Comparable>
-    
-    
     
     @State var isDataLoading: Bool = true
     @State var errorMessage: String = ""
@@ -23,7 +22,12 @@ struct ContentView: View {
     var pokeList: [PokemonName]? { FilterService.filterByKeyword(searchText, from: allPokemons, prop: \.name)
     }
     
-    func getPokemons() {
+    var suggestions: [String] {
+        guard !searchText.isEmpty else { return [] }
+        return Array(allNames.sorted().filter { $0.lowercased().localizedStandardContains(searchText) }.prefix(10))
+    }
+    
+    func getData() {
         let url = Routes.baseUrl
         
         previousTask?.cancel()
@@ -35,11 +39,14 @@ struct ContentView: View {
             
             if let response = response {
                 allPokemons = response.results
+                allNames = response.results.map { $0.name.capitalizeFirst() }
             }
         }
         
         isDataLoading = false
     }
+    
+    
     
     var body: some View {
         Loader(isShown: $isDataLoading) {
@@ -77,13 +84,17 @@ struct ContentView: View {
                         }
                     }
                     .searchable(text: $searchText)
+                    .searchSuggestions {
+                        SearchSuggestionsView(suggestions: suggestions, keyword: $searchText)
+                    }
                     .autocorrectionDisabled()
                     .animation(.default, value: searchText)
                 }
             }
             .onAppear() {
-                getPokemons()
+                getData()
                 UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .text
+                
             }
         }
     }
@@ -92,3 +103,5 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+

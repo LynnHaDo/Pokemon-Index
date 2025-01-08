@@ -16,7 +16,7 @@ struct Pokemon: Decodable {
     let abilities: [Ability]
     
     func imageUrl() -> String {
-        return "\(Routes.pokemonImageBaseUrl)\(id).png"
+        return Routes.pokemonImageUrl(id)
     }
     
     func backgroundImage() -> Image {

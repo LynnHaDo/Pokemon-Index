@@ -31,7 +31,6 @@ struct CustomNavigationStack<Content: View>: View {
     var body: some View {
         NavigationStack {
             self.content
-                
                 .background(Color.background)
                 .toolbarBackground(Color.background, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)

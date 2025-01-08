@@ -49,11 +49,7 @@ struct PokemonDetails: View {
                                         BannerImage(image: sprite.backgroundImage())
                                         
                                         // Sprite image
-                                        AsyncImage(url: URL(string: sprite.imageUrl())) { image in
-                                            image.resizable().scaledToFit()
-                                        } placeholder: {
-                                            Color.gray
-                                        }
+                                        SpriteImage(url: sprite.imageUrl())
                                         .frame(width: geo.size.width * 0.5)
                                         .clipShape(.rect(cornerRadius: 5))
                                         .shadow(color: Color.background, radius: 7)
