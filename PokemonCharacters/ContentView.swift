@@ -10,6 +10,8 @@ import SwiftUI
 struct ContentView: View {
 
     @State var searchText: String = ""
+    @State var isSorting: Bool = false
+    @State var isSortAscending: Bool = false
     
     @State var allNames: [String] = []
     @State var allPokemons: [PokemonName]?
@@ -19,7 +21,15 @@ struct ContentView: View {
     
     @State var previousTask: URLSessionTask?
     
-    var pokeList: [PokemonName]? { FilterService.filterByKeyword(searchText, from: allPokemons, prop: \.name)
+    var pokeList: [PokemonName] {
+        var l = FilterService
+            .search(searchText, from: allPokemons, prop: \.name)
+        
+        if (isSorting) {
+            l = FilterService.sort(from: l, prop: \.name, ascending: isSortAscending)
+        }
+        
+        return l
     }
     
     var suggestions: [String] {
@@ -69,14 +79,20 @@ struct ContentView: View {
                                     // Banner text
                                     Text("Welcome to Pokémon World").title()
                                     
-                                    //Picker("Sort by", selection: $sortProperty) {
-                                        //ForEach()
-                                    //}
-
-                                    // List of pokemons
-                                    if let pokeList {
-                                        PokemonList(list: pokeList)
+                                    HStack {
+                                        Spacer()
+                                        Button {
+                                            isSorting = true
+                                            isSortAscending.toggle()
+                                        } label: {
+                                            Text("Sort name").regular()
+                                            Image(systemName: isSortAscending ? "arrowtriangle.up.square" : "arrowtriangle.down.square").foregroundStyle(Color.text)
+                                        }
+                                        .padding(.vertical, 5)
                                     }
+                                    
+                                    // List of pokemons
+                                    PokemonList(list: pokeList)
                                 }
                                 .padding(.vertical, 30)
                                 .padding(.horizontal)

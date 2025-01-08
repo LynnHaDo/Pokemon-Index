@@ -6,11 +6,13 @@
 //
 
 struct FilterService {
+    
     // Filter a given property by a keyword
-    static func filterByKeyword<T: Decodable>(_ keyword: String,
-                                       from list: [T]?,
-                                       prop property: KeyPath<T, String>) -> [T]? {
-        guard let list else { return nil }
+    static func search <T: Decodable>  (_ keyword: String,
+                                        from list: [T]?,
+                                        prop property: KeyPath<T, String>) -> [T] {
+        
+        guard let list else { return [] }
         
         let key = keyword.trimLeadingAndTrailingSpaces()
         
@@ -28,8 +30,8 @@ struct FilterService {
     // Sort a string property alphabetically
     static func sort<T: Decodable, KeyType: Comparable>(from list: [T]?,
                                                         prop property: KeyPath<T, KeyType>,
-                                                        ascending: Bool = true) -> [T]? {
-        guard let list else { return nil }
+                                                        ascending: Bool = true) -> [T] {
+        guard let list else { return [] }
         
         var returnedList = list
         
