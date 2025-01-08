@@ -10,7 +10,9 @@ import SwiftUI
 struct APIService {
     private weak var previousTask: URLSessionTask?
     
-    static func get<T: Decodable>(_ resourceUrl: String, completion: @Sendable @MainActor @escaping (T?, Error?) -> ()) -> URLSessionTask?
+    static func get<T: Decodable>(_ resourceUrl: String,
+                                  completion: @Sendable @MainActor @escaping (T?, Error?) -> ())
+    -> URLSessionTask?
     {
         guard let url = URL(string: resourceUrl) else { return nil }
         

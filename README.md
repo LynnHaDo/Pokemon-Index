@@ -64,6 +64,8 @@ This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon
     - [x] Basic info
     - [x] Image 
     - [x] Abilities 
+        - [x] Display Pokemons with similar abilities
+- [x] Add search bar 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

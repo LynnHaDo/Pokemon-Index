@@ -8,10 +8,14 @@
 import SwiftUI
 
 extension String {
-    func capitalizeFirst() -> String {
+    func trimLeadingAndTrailingSpaces() -> String {
         let leadingAndTrailingSpaces: CharacterSet = .whitespacesAndNewlines
+        return self.trimmingCharacters(in: leadingAndTrailingSpaces)
+    }
+    
+    func capitalizeFirst() -> String {
         let whitespaces: CharacterSet = .whitespaces
-        let trimmed = self.trimmingCharacters(in: leadingAndTrailingSpaces)
+        let trimmed = trimLeadingAndTrailingSpaces()
         let strings: [String] = trimmed.components(separatedBy: whitespaces)
         var result = ""
         for idx in 0..<strings.count {

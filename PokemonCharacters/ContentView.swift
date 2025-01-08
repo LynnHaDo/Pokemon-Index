@@ -8,31 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
-    
-    var pokeList: [PokemonName]? {
-        if let allPokemons {
-            if searchText.isEmpty {
-                return allPokemons
-            }
-            else {
-                return allPokemons.filter {
-                    pokemon in
-                    pokemon.name.localizedCaseInsensitiveContains(searchText)
-                }
-            }
-        }
-        else {
-            return nil
-        }
-    }
-    
+
     @State var searchText: String = ""
     @State var allPokemons: [PokemonName]?
+    //@State var sortProperty: KeyPath<Pokemon, any Comparable>
+    
+    
     
     @State var isDataLoading: Bool = true
     @State var errorMessage: String = ""
     
     @State var previousTask: URLSessionTask?
+    
+    var pokeList: [PokemonName]? { FilterService.filterByKeyword(searchText, from: allPokemons, prop: \.name)
+    }
     
     func getPokemons() {
         let url = Routes.baseUrl
@@ -72,6 +61,10 @@ struct ContentView: View {
                                     
                                     // Banner text
                                     Text("Welcome to Pokémon World").title()
+                                    
+                                    //Picker("Sort by", selection: $sortProperty) {
+                                        //ForEach()
+                                    //}
 
                                     // List of pokemons
                                     if let pokeList {
