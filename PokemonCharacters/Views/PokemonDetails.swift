@@ -72,6 +72,7 @@ struct PokemonDetails: View {
                                             {
                                                 Image(systemName: "mappin.and.ellipse")
                                                     .font(.largeTitle)
+                                                    .foregroundStyle(Color.accentColor)
                                                     .imageScale(.large)
                                                     .symbolEffect(PulseSymbolEffect.pulse)
                                             }
@@ -82,6 +83,7 @@ struct PokemonDetails: View {
                                             Image(systemName: "arrowtriangle.forward.square")
                                                 .imageScale(.large)
                                                 .font(.title3)
+                                                .foregroundStyle(Color.accentColor)
                                                 .padding(.trailing, 5)
                                         }
                                         
@@ -140,6 +142,11 @@ struct PokemonDetails: View {
 }
 
 #Preview {
-    
-    //PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3")
+    let locationName = "Twin Peaks, San Francisco, CA, USA"
+    let location = (locationName, CLLocationCoordinate2D(
+        latitude: FamousLocations[locationName]![0],
+           longitude: FamousLocations[locationName]![1]))
+    PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3",
+                   location: location,
+                   locationMap: .camera(MapCamera(centerCoordinate: location.1, distance: 10000)))
 }
