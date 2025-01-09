@@ -122,5 +122,12 @@ struct EffectEntryView: View {
 }
 
 #Preview {
-    //AbilityView(abilityName: "overgrow", pokemonName: "venusaur", resourceUrl: "https://pokeapi.co/api/v2/ability/5/")
+    let name = "Venusaur"
+    let location = locationService.getRandomPosition(name)
+    AbilityView(abilityName: "overgrow",
+                pokemonName: "venusaur",
+                pokemonLocation: location,
+                pokemonLocationMap: .camera(MapCamera(centerCoordinate: location.1, distance: 10000)),
+                resourceUrl: "https://pokeapi.co/api/v2/ability/5/"
+                )
 }

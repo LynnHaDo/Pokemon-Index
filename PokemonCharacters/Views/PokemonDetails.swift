@@ -142,10 +142,7 @@ struct PokemonDetails: View {
 }
 
 #Preview {
-    let locationName = "Twin Peaks, San Francisco, CA, USA"
-    let location = (locationName, CLLocationCoordinate2D(
-        latitude: FamousLocations[locationName]![0],
-           longitude: FamousLocations[locationName]![1]))
+    let location = locationService.getRandomPosition("Venusaur")
     PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3",
                    location: location,
                    locationMap: .camera(MapCamera(centerCoordinate: location.1, distance: 10000)))

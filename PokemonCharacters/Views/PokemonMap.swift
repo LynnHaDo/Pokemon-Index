@@ -44,10 +44,10 @@ struct PokemonMap: View {
 #Preview {
     PokemonMap(position: .camera(
         MapCamera(
-            centerCoordinate: LocationService.getRandomPosition("ivysaur").1,
+            centerCoordinate: locationService.getRandomPosition("Venusaur").1,
             distance: 1000,
             heading: 250,
             pitch: 80
         )
-    )).environmentObject(PokemonWrapper())
+    )).environmentObject(pokemonWrapper)
 }

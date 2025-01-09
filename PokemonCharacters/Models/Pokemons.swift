@@ -9,6 +9,8 @@ import Foundation
 import MapKit
 import SwiftUI
 
+let pokemonWrapper: PokemonWrapper = PokemonWrapper()
+
 class PokemonWrapper: ObservableObject {
     @Published var allPokemons: [PokemonName] = []
     @Published var allNames: [String] = []
@@ -46,7 +48,7 @@ struct PokemonName: Decodable {
         case name, url
     }
     
-    var location: (String, CLLocationCoordinate2D) { LocationService.getRandomPosition(name) }
+    var location: (String, CLLocationCoordinate2D) { locationService.getRandomPosition(self.name) }
     
     var imageUrl: String
     {

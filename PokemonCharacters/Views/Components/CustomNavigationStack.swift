@@ -53,6 +53,7 @@ struct CustomNavigationStack<Content: View>: View {
                         }
                     }
                 }
+                .environmentObject(pokemonWrapper)
         }
     }
 }

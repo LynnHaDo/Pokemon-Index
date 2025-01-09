@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @StateObject var wrapper: PokemonWrapper = PokemonWrapper()
+    @StateObject var wrapper: PokemonWrapper = pokemonWrapper
 
     @State var searchText: String = ""
     @State var isSorting: Bool = false
@@ -69,7 +69,6 @@ struct ContentView: View {
                         }
                     }
                 }
-                .environmentObject(wrapper)
                 .searchable(text: $searchText)
                 .searchSuggestions {
                     SearchSuggestionsView(suggestions: suggestions, keyword: $searchText)
