@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct PokemonDetails: View {
     let resourceUrl: String
+    let location: (String, CLLocationCoordinate2D)
+    @State var locationMap: MapCameraPosition
     
     @State var sprite: Pokemon?
     @State var errorMessage: String = ""
@@ -40,7 +43,7 @@ struct PokemonDetails: View {
                     Text(errorMessage).caption()
                 }
                 else {
-                    if let sprite {
+                    if let sprite = sprite {
                         CustomNavigationStack(navigationTitle: sprite.name) {
                             GeometryReader { geo in
                                 ScrollView {
@@ -60,7 +63,27 @@ struct PokemonDetails: View {
                                         // Sprite name
                                         Text(sprite.name.capitalized).title()
                                         
+                                        Text("\(sprite.name.capitalized) is at \(location.0)").regular()
+                                            .padding(.vertical, 5)
+                                        
                                         // Current location
+                                        Map(position: $locationMap) {
+                                            Annotation(sprite.name, coordinate: location.1)
+                                            {
+                                                Image(systemName: "mappin.and.ellipse")
+                                                    .font(.largeTitle)
+                                                    .imageScale(.large)
+                                                    .symbolEffect(PulseSymbolEffect.pulse)
+                                            }
+                                        }
+                                        .frame(height: 200)
+                                        .clipShape(.rect(cornerRadius: 5))
+                                        .overlay(alignment: .trailing) {
+                                            Image(systemName: "arrowtriangle.forward.square")
+                                                .imageScale(.large)
+                                                .font(.title3)
+                                                .padding(.trailing, 5)
+                                        }
                                         
                                         // Height
                                         Heading(name: "Height",
@@ -84,9 +107,12 @@ struct PokemonDetails: View {
                                         ForEach(0..<sprite.abilities.count, id: \.self) { idx in
                                             let abilityWrapper: Pokemon.Ability = sprite.abilities[idx]
                                             
-                                            NavigationLink(destination: AbilityView(abilityName: abilityWrapper.ability.name,
-                                                                                    pokemonName: sprite.name,
-                                                                                    resourceUrl: abilityWrapper.ability.url)) {
+                                            NavigationLink(destination:
+                                                            AbilityView(abilityName: abilityWrapper.ability.name,
+                                                                        pokemonName: sprite.name,
+                                                                        pokemonLocation: location,
+                                                                        pokemonLocationMap: locationMap,
+                                                                        resourceUrl: abilityWrapper.ability.url)) {
                                                 ItemView(name: abilityWrapper.ability.name,
                                                          tag: Tag(content: abilityWrapper.isHidden ? "Hidden" : "Not hidden", type: abilityWrapper.isHidden ? TagType.pink : TagType.green)
                                                 )
@@ -114,5 +140,6 @@ struct PokemonDetails: View {
 }
 
 #Preview {
-    PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3/")
+    
+    //PokemonDetails(resourceUrl: "https://pokeapi.co/api/v2/pokemon/3")
 }

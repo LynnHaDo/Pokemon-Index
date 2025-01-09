@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct Pokemon: Decodable {
     let id: Int
@@ -20,12 +21,12 @@ struct Pokemon: Decodable {
     }
     
     func backgroundImage() -> Image {
-        let randomInt = Int.random(in: 1..<4)
+        let type = self.name.count % 3
         
-        switch randomInt {
-            case 1:
+        switch type {
+            case 0:
                 return Image(.sceneOne)
-            case 2:
+            case 1:
                 return Image(.sceneTwo)
             default:
                 return Image(.sceneThree)

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct PokemonList: View {
     let list: [PokemonName]
@@ -28,9 +29,12 @@ struct PokemonList: View {
             LazyVStack {
                 ForEach(0..<list.count, id: \.self) { idx in
                     let pokemon = list[idx]
-                    NavigationLink(destination: PokemonDetails(resourceUrl: pokemon.url)) {
+                    let location = pokemon.location
+                    NavigationLink(destination: PokemonDetails(resourceUrl: pokemon.url,
+                                                               location: location,
+                                                               locationMap: .camera(MapCamera(centerCoordinate: location.1, distance: 10000)))) {
                         ItemView(name: pokemon.name,
-                                 spriteImage: SpriteImage(url: getImageUrlFrom(pokemon.url)))
+                             spriteImage: SpriteImage(url: getImageUrlFrom(pokemon.url)))
                         
                     }
                 }

@@ -6,10 +6,13 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct AbilityView: View {
     let abilityName: String
-    let pokemonName: String 
+    let pokemonName: String
+    let pokemonLocation: (String, CLLocationCoordinate2D)
+    let pokemonLocationMap: MapCameraPosition
     let resourceUrl: String
     
     @State var ability: PokemonAbility?
@@ -68,7 +71,7 @@ struct AbilityView: View {
                                         ForEach(0..<ability.pokemon.count, id: \.self) {
                                             idx in
                                             let pokemonAbility: PokemonAbility.PokemonEffectEntry = ability.pokemon[idx]
-                                            NavigationLink(destination: PokemonDetails(resourceUrl: pokemonAbility.pokemon.url)) {
+                                            NavigationLink(destination: PokemonDetails(resourceUrl: pokemonAbility.pokemon.url, location: pokemonLocation, locationMap: pokemonLocationMap)) {
                                                 ItemView(name: pokemonAbility.pokemon.name,
                                                          tag: Tag(content: pokemonAbility.isHidden ? "Hidden" : "Not hidden",
                                                                   type: pokemonAbility.isHidden ? TagType.pink : TagType.green))
@@ -119,5 +122,5 @@ struct EffectEntryView: View {
 }
 
 #Preview {
-    AbilityView(abilityName: "overgrow", pokemonName: "venusaur", resourceUrl: "https://pokeapi.co/api/v2/ability/5/")
+    //AbilityView(abilityName: "overgrow", pokemonName: "venusaur", resourceUrl: "https://pokeapi.co/api/v2/ability/5/")
 }
