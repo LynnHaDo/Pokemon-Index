@@ -67,25 +67,28 @@ struct PokemonDetails: View {
                                             .padding(.vertical, 5)
                                         
                                         // Current location
-                                        Map(position: $locationMap) {
-                                            Annotation(sprite.name, coordinate: location.1)
-                                            {
-                                                Image(systemName: "mappin.and.ellipse")
-                                                    .font(.largeTitle)
-                                                    .foregroundStyle(Color.accentColor)
+                                        NavigationLink(destination: PokemonMap(position: locationMap)) {
+                                            Map(position: $locationMap) {
+                                                Annotation(sprite.name, coordinate: location.1)
+                                                {
+                                                    Image(systemName: "mappin.and.ellipse")
+                                                        .font(.largeTitle)
+                                                        .foregroundStyle(Color.accentColor)
+                                                        .imageScale(.large)
+                                                        .symbolEffect(PulseSymbolEffect.pulse)
+                                                }
+                                            }
+                                            .frame(height: 200)
+                                            .clipShape(.rect(cornerRadius: 5))
+                                            .overlay(alignment: .trailing) {
+                                                Image(systemName: "arrowtriangle.forward.square")
                                                     .imageScale(.large)
-                                                    .symbolEffect(PulseSymbolEffect.pulse)
+                                                    .font(.title3)
+                                                    .foregroundStyle(Color.accentColor)
+                                                    .padding(.trailing, 5)
                                             }
                                         }
-                                        .frame(height: 200)
-                                        .clipShape(.rect(cornerRadius: 5))
-                                        .overlay(alignment: .trailing) {
-                                            Image(systemName: "arrowtriangle.forward.square")
-                                                .imageScale(.large)
-                                                .font(.title3)
-                                                .foregroundStyle(Color.accentColor)
-                                                .padding(.trailing, 5)
-                                        }
+                                        
                                         
                                         // Height
                                         Heading(name: "Height",

@@ -34,6 +34,7 @@ struct CustomNavigationStack<Content: View>: View {
                 .background(Color.background)
                 .toolbarBackground(Color.background, for: .navigationBar)
                 .toolbarBackground(.visible, for: .navigationBar)
+                .toolbarBackground(.automatic, for: .navigationBar)
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationBarBackButtonHidden(true)
                 .toolbar {
@@ -53,7 +54,7 @@ struct CustomNavigationStack<Content: View>: View {
                         }
                     }
                 }
-                .environmentObject(pokemonWrapper)
         }
+        .environmentObject(pokemonWrapper)
     }
 }

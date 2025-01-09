@@ -18,6 +18,8 @@ class LocationService {
         CLLocationCoordinate2D(latitude: 42.259552, longitude: -72.581291)
     )
     
+    let earthRad = Double(6378)
+    
     init() {
         guard let filePath = Bundle.main.path(forResource: "uscities", ofType: "csv") else {
             return
@@ -58,15 +60,27 @@ class LocationService {
     static func randomBetween(_ firstNum: CGFloat, _ secondNum: CGFloat) -> CGFloat {
         return CGFloat(arc4random()) / CGFloat(UINT32_MAX) * abs(firstNum - secondNum) + min(firstNum, secondNum)
     }
+    
+    func getPositionOffsetBy(originalLat: Double, originalLong: Double, xOffset: Double, yOffset: Double) -> CLLocationCoordinate2D {
+        let newLat = originalLat + Double(yOffset/earthRad) * (180/Double.pi)
+        let newLong = originalLong + Double(xOffset / earthRad) * (180 / Double.pi) / cos(originalLat * Double.pi / 180)
+        return CLLocationCoordinate2D(latitude: newLat,
+                                      longitude: newLong)
+    }
 
     func getRandomPosition(_ withName: String = "PokeIndex") -> (String, CLLocationCoordinate2D) {
-        let randomInt = massAndNyData.count / withName.count
+        let locationId = massAndNyData.count / withName.count
         
-        let location: Location = massAndNyData[randomInt]
+        let randomXOffset = Double.random(in: -2...2)
+        let randomYOffset = Double.random(in: -2...2)
+        
+        let location: Location = massAndNyData[locationId]
         let locationName = "\(location.cityAscii.capitalizeFirst()), \(location.countyName.capitalizeFirst()), \(location.stateId.uppercased())"
         
-        return (locationName, CLLocationCoordinate2D(latitude: location.lat,
-                                                     longitude: location.lng))
+        return (locationName, getPositionOffsetBy(originalLat: location.lat,
+                                                  originalLong: location.lng,
+                                                  xOffset: randomXOffset,
+                                                  yOffset: randomYOffset))
     }
     
     static func locationToString(loc: CLLocationCoordinate2D) -> String {
