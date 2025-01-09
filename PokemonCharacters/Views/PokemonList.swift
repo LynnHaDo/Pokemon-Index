@@ -11,12 +11,6 @@ import MapKit
 struct PokemonList: View {
     let list: [PokemonName]
     
-    func getImageUrlFrom(_ url: String) -> String
-    {
-        guard let id = Int(url.components(separatedBy: Routes.baseUrl)[1].dropLast()) else { return "" }
-        return Routes.pokemonImageUrl(id)
-    }
-    
     var body: some View {
         if list.count == 0 {
             VStack {
@@ -34,7 +28,7 @@ struct PokemonList: View {
                                                                location: location,
                                                                locationMap: .camera(MapCamera(centerCoordinate: location.1, distance: 10000)))) {
                         ItemView(name: pokemon.name,
-                             spriteImage: SpriteImage(url: getImageUrlFrom(pokemon.url)))
+                                 spriteImage: SpriteImage(url: pokemon.imageUrl))
                         
                     }
                 }
