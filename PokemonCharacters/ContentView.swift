@@ -80,7 +80,9 @@ struct ContentView: View {
             .onAppear() {
                 UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).backgroundColor = .text
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                    isDataLoading = false
+                    withAnimation {
+                        isDataLoading = false
+                    }
                 }
             }
         }
