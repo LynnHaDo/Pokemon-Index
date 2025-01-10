@@ -18,8 +18,8 @@ struct APIService {
         
         let dataTask = URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let e = error {
-                print(e.localizedDescription)
-                return 
+                print("Error getting data: \(e.localizedDescription)")
+                return
             }
             
             DispatchQueue.main.async {

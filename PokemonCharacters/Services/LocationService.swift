@@ -54,7 +54,7 @@ class LocationService {
             }
         }
         catch {
-            print(error)
+            print("Error reading location file")
             return
         }
     }

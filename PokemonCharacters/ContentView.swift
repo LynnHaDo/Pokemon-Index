@@ -50,6 +50,7 @@ struct ContentView: View {
                                 Text("Welcome to Pokémon World").title()
                                 
                                 HStack {
+                                    Text("\(wrapper.numPokemons) pokémons").regular()
                                     Spacer()
                                     Button {
                                         isSorting = true
