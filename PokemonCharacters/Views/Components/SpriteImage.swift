@@ -11,15 +11,13 @@ struct SpriteImage: View {
     let url: String
     
     var body: some View {
-        GeometryReader { geo in
-            AsyncImage(url: URL(string: url)) { image in
-                image.resizable().scaledToFit()
-            } placeholder: {
-                Image(.defaultSprite)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 20)
-            }
+        AsyncImage(url: URL(string: url)) { image in
+            image.resizable().scaledToFit()
+        } placeholder: {
+            Image(.defaultSprite)
+                .resizable()
+                .scaledToFit()
+                .frame(width: 20)
         }
     }
 }
