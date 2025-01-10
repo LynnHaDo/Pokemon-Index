@@ -67,7 +67,14 @@ struct PokemonDetails: View {
                                             .padding(.vertical, 5)
                                         
                                         // Current location
-                                        NavigationLink(destination: PokemonMap(position: locationMap)) {
+                                        NavigationLink(destination: PokemonMap(position: .camera(
+                                            MapCamera(
+                                                centerCoordinate: location.1,
+                                                distance: 1000,
+                                                heading: 230,
+                                                pitch: 80
+                                            )
+                                        ))) {
                                             Map(position: $locationMap) {
                                                 Annotation(sprite.name, coordinate: location.1)
                                                 {

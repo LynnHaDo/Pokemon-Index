@@ -17,7 +17,7 @@ class PokemonWrapper: ObservableObject {
     @Published var previousTask: URLSessionTask?
     
     init() {
-        let url = Routes.baseUrl
+        let url = "\(Routes.baseUrl)\(Routes.allUrl)"
         
         previousTask?.cancel()
         

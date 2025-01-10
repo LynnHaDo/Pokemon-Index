@@ -36,7 +36,7 @@ class LocationService {
                 let city: String = columns[1].replacingOccurrences(of: "\"", with: "")
                 let state: String = columns[2].replacingOccurrences(of: "\"", with: "")
                 let county: String = columns[5].replacingOccurrences(of: "\"", with: "")
-                if state == "MA" {
+                if state == "MA" || state == "NY" {
                     let lat = Double(columns[6].replacingOccurrences(of: "\"", with: ""))
                     let lng = Double(columns[7].replacingOccurrences(of: "\"", with: ""))
                     var location: Location {

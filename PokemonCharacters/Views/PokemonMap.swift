@@ -22,7 +22,7 @@ struct PokemonMap: View {
                 {
                     SpriteImage(url: pokemon.imageUrl)
                         .shadow(color: .text, radius: 3)
-                        .scaleEffect(10)
+                        .scaleEffect(7)
                 }
             }
         }
@@ -45,8 +45,8 @@ struct PokemonMap: View {
     PokemonMap(position: .camera(
         MapCamera(
             centerCoordinate: locationService.getRandomPosition("Venusaur").1,
-            distance: 1000,
-            heading: 250,
+            distance: 2000,
+            heading: 230,
             pitch: 80
         )
     )).environmentObject(pokemonWrapper)
