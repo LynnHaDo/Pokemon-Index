@@ -1,0 +1,15 @@
+{
+  "originHash" : "769987c7c81ab9c86727ee0a9174185c2594e649d94a754fe54c762e5ae1b210",
+  "pins" : [
+    {
+      "identity" : "swift-pcg-random",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/paiv/swift-pcg-random.git",
+      "state" : {
+        "revision" : "a6b07494d67b83a5548e46b1925d31513c5cae7a",
+        "version" : "1.4.1"
+      }
+    }
+  ],
+  "version" : 3
+}

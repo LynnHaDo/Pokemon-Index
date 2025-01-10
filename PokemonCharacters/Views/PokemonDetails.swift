@@ -12,6 +12,7 @@ struct PokemonDetails: View {
     let resourceUrl: String
     let location: (String, CLLocationCoordinate2D)
     @State var locationMap: MapCameraPosition
+    @Namespace var namespace
     
     @State var sprite: Pokemon?
     @State var errorMessage: String = ""
@@ -68,13 +69,16 @@ struct PokemonDetails: View {
                                         
                                         // Current location
                                         NavigationLink(destination: PokemonMap(position: .camera(
-                                            MapCamera(
-                                                centerCoordinate: location.1,
-                                                distance: 1000,
-                                                heading: 230,
-                                                pitch: 80
+                                                MapCamera(
+                                                    centerCoordinate: location.1,
+                                                    distance: 2000,
+                                                    heading: 230,
+                                                    pitch: 80
+                                                )
                                             )
-                                        ))) {
+                                            )
+                                            .navigationTransition(.zoom(sourceID: 1, in: namespace))
+                                        ) {
                                             Map(position: $locationMap) {
                                                 Annotation(sprite.name, coordinate: location.1)
                                                 {
@@ -95,6 +99,7 @@ struct PokemonDetails: View {
                                                     .padding(.trailing, 5)
                                             }
                                         }
+                                        .matchedTransitionSource(id: 1, in: namespace)
                                         
                                         
                                         // Height

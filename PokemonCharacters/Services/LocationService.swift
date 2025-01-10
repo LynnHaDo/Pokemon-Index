@@ -7,8 +7,10 @@
 
 import MapKit
 import Foundation
+import PcgRandom // For random number generator
 
 let locationService: LocationService = LocationService()
+var pcg = Pcg64Random(seed: 10)
 
 class LocationService {
     var massAndNyData: [Location] = []
@@ -71,8 +73,8 @@ class LocationService {
     func getRandomPosition(_ withName: String = "PokeIndex") -> (String, CLLocationCoordinate2D) {
         let locationId = massAndNyData.count / withName.count
         
-        let randomXOffset = Double.random(in: -2...2)
-        let randomYOffset = Double.random(in: -2...2)
+        let randomXOffset = Double.random(in: -1...1, using: &pcg)
+        let randomYOffset = Double.random(in: -1...1, using: &pcg)
         
         let location: Location = massAndNyData[locationId]
         let locationName = "\(location.cityAscii.capitalizeFirst()), \(location.countyName.capitalizeFirst()), \(location.stateId.uppercased())"

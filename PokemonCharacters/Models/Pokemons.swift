@@ -48,7 +48,7 @@ struct PokemonName: Decodable {
         case name, url
     }
     
-    var location: (String, CLLocationCoordinate2D) { locationService.getRandomPosition(self.name) }
+    var location: (String, CLLocationCoordinate2D) { locationService.getRandomPosition(name) }
     
     var imageUrl: String
     {

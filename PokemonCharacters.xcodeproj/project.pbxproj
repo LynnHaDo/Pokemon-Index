@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		910A14FF2D1F777000C5DB62 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 910A14FE2D1F776C00C5DB62 /* README.md */; };
+		9144CA972D30D88300866A2F /* PcgRandom in Frameworks */ = {isa = PBXBuildFile; productRef = 9144CA962D30D88300866A2F /* PcgRandom */; };
 		91CBCEA62D2CAE3000B9515F /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 91CBCEA52D2CAE2B00B9515F /* .gitignore */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9144CA972D30D88300866A2F /* PcgRandom in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +96,7 @@
 			);
 			name = PokemonCharacters;
 			packageProductDependencies = (
+				9144CA962D30D88300866A2F /* PcgRandom */,
 			);
 			productName = PokemonCharacters;
 			productReference = 91DE553E2D1E795000AF6B31 /* PokemonCharacters.app */;
@@ -124,6 +127,7 @@
 			mainGroup = 91DE55352D1E795000AF6B31;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				9144CA952D30D88300866A2F /* XCRemoteSwiftPackageReference "swift-pcg-random" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 91DE553F2D1E795000AF6B31 /* Products */;
@@ -359,6 +363,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9144CA952D30D88300866A2F /* XCRemoteSwiftPackageReference "swift-pcg-random" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/paiv/swift-pcg-random.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9144CA962D30D88300866A2F /* PcgRandom */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9144CA952D30D88300866A2F /* XCRemoteSwiftPackageReference "swift-pcg-random" */;
+			productName = PcgRandom;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 91DE55362D1E795000AF6B31 /* Project object */;
 }
