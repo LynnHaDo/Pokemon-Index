@@ -46,26 +46,39 @@
 ## Demo
 
 <div align="center">
+    <video src="https://github.com/user-attachments/assets/f747f13d-97a3-4d87-b89e-c41901fb85e5" width="320">
 </div>
 
 ### Screen layouts
 
+<img align="center" src="Public/ip_16.png" margin="10px auto"/>
+
+<p align="center">iPhone 16 Pro</p>
+
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon characters index app that fetches currency data from the [PokéAPI](https://pokeapi.co/docs/v2).
+This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon characters index app that fetches Pokémons from the [PokéAPI](https://pokeapi.co/docs/v2). 
+
+Right now, the app fetches data from the API and render that to view. However, the next goal is to migrate the data from the API into Core Data models—for better management and maintenance of data. 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Progress
 
-- [x] Fetch data from PokéAPI and display the top 300 Pokémons
+- [x] Fetch data from PokéAPI and display all Pokémons
+    - [x] Add functionality to sort the Pokémons by name 
 - [x] Render details for each Pokémon:
     - [x] Basic info
     - [x] Image 
     - [x] Abilities 
-        - [x] Display Pokemons with similar abilities
+        - [x] Display Pokémons with similar abilities
+    - [x] Location 
+        - [x] Fetch US Locations from [US Cities Database](https://simplemaps.com/data/us-cities)
+        - [x] Add a random offset to each Pokémon for more varying location pins on the map 
 - [x] Add search bar 
+- [x] Render a map (normal and satellite view) with all pokemons 
+- [x] Add a sticker pack to the app
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -74,6 +87,8 @@ This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon
 - XCode 16.2
 - [SwiftUI](https://developer.apple.com/xcode/swiftui/)
 - [PokéAPI](https://pokeapi.co/docs/v2)
+- [MapKit](https://developer.apple.com/documentation/mapkit/mapkit-for-swiftui)
+- [US Cities Database](https://simplemaps.com/data/us-cities)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -83,7 +98,7 @@ This is my (second) attempt at making a SwiftUI app! I created a simple Pokémon
 
 ### Build locally
 
-1. Clone the repo
+Clone the repo
 
 ```
 git clone https://github.com/LynnHaDo/Pokemon-Index.git
