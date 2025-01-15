@@ -15,10 +15,16 @@ struct PersistenceController {
     static let preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-        }
+        
+        let sample = Pokemon(context: viewContext)
+        sample.id = 1
+        sample.name = "clefairy"
+        sample.types = ["fairy"]
+        sample.speed = 35
+        sample.sprite = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/35.png")
+        sample.shiny = URL(string: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/35.png")
+        sample.favorite = false 
+        
         do {
             try viewContext.save()
         } catch {
